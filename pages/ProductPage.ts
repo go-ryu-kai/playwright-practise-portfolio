@@ -29,8 +29,9 @@ export class ProductPage extends BasePage {
     }
 
     async selectCategoryAndSubcategory(cat: string, subcat: string) {
-        await this.productCategoryAccordion.getByRole("link", { name: cat, exact: false }).click();
-        await this.productCategoryAccordion.locator("#"+cat).getByRole("link", { name: subcat, exact: false }).click();
+        const targetPanel = this.productCategoryAccordion.locator(".panel").filter({ hasText: cat });
+        await targetPanel.getByRole("link", { name: cat, exact: false }).click();
+        await targetPanel.getByRole("link", { name: subcat, exact: false }).click();
     }
 
     async getSearchHeaderText() {
@@ -54,6 +55,7 @@ export class ProductPage extends BasePage {
     async getExpectedBrandCount(brandName: string) {
         const brandLocator = this.brandsAccordion.getByRole("link", { name: brandName });
         const fullString = await brandLocator.innerText();
+        console.log(fullString);
         return parseInt(fullString.replace(/\D/g, ""), 10);
     }
 
