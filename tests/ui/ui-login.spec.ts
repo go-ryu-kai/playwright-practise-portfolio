@@ -17,8 +17,6 @@ test("Test 1: Valid Login Happy Path", async ({ page }) => {
     const loginConfirmationElement = await loginPage.findLoginConfirmation(name);
     expect(loginConfirmationElement).toContain("Logged in as "+name);
 
-
-    
 });
 
 test("Test 2: Invalid Login: Bad Password", async ({ page }) => {
@@ -43,3 +41,9 @@ test("Test 3: Sign Up New User (Not Full Journey)", async ({ page }) => {
     await expect(page).toHaveURL("https://automationexercise.com/signup");
     
 });
+
+test("Test 4: Password Masking", async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await expect(loginPage.getPasswordInput()).toHaveAttribute("type", "password");
+
+})

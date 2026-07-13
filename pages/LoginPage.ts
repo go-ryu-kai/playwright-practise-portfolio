@@ -49,8 +49,11 @@ export class LoginPage extends BasePage {
         return this.loginForm;
     }
 
+    getPasswordInput(): Locator {
+        return this.loginPasswordInput;
+    }
+
     getErrorMessageLocator(): Locator {
         return this.loginForm.getByText("Your email or password is incorrect!");
     }
-
 }
