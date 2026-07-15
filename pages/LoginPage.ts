@@ -41,8 +41,10 @@ export class LoginPage extends BasePage {
         await this.signupButton.click();
     }
 
-    async findLoginConfirmation(name: string) {
-        return await this.navbar.locator("li").last().innerText();
+    findLoginConfirmationLocator(): Locator {
+        return this.navbar.locator('li').filter({ hasText: 'Logged in as' });
+        //updated the above to be more resilient to dev changes!
+       
     }
 
     async getLoginForm() {

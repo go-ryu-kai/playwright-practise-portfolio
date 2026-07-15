@@ -13,9 +13,12 @@ test("Test 1: Valid Login Happy Path", async ({ page }) => {
     const name = "Playwright CV";
 
     await loginPage.login(email, password);
-    expect(page).toHaveURL("https://automationexercise.com");
-    const loginConfirmationElement = await loginPage.findLoginConfirmation(name);
-    expect(loginConfirmationElement).toContain("Logged in as "+name);
+    await  expect(page).toHaveURL("https://automationexercise.com");
+    const loginConfirmationElement = loginPage.findLoginConfirmationLocator();
+    await expect(loginConfirmationElement).toContainText("Logged in as "+name);
+
+    //The above kept failing. Why?
+    //toContainText() is a web-first assertion, it must be awaited.
 
 });
 
