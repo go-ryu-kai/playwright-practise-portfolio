@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { ProductPage } from '../../pages/ProductPage';
 import { LoginPage } from '../../pages/LoginPage';
 
-test("Verify console: no major runtime errors or leakage warnings", async ({ page }) => {
+test("Test 1: Verify console: no major runtime errors or leakage warnings", async ({ page }) => {
     const consoleErrors: string[] = [];
 
     page.on("console", (message) => {
@@ -16,7 +16,7 @@ test("Verify console: no major runtime errors or leakage warnings", async ({ pag
     expect(consoleErrors, `Found server/client exceptions: ${consoleErrors.join(", ")}`).toEqual([]);
 });
 
-test("Verify essential HTTP security headers", async ({ page }) => {
+test("Test 2: Verify essential HTTP security headers", async ({ page }) => {
     //note that this test fails! the website doesn't have these headers!
     //tested with facebook: verifies the headers accordingly
     const response = await page.goto("https://automationexercise.com/");
@@ -28,7 +28,7 @@ test("Verify essential HTTP security headers", async ({ page }) => {
     expect(headers?.['x-frame-options']).toBeDefined();
 });
 
-test("Block malicious script injection", async ({ page }) => {
+test("Test 3: Block malicious script injection", async ({ page }) => {
     const productPage = new ProductPage(page);
     await page.goto("https://automationexercise.com/products");
     let alert = false;
@@ -38,11 +38,10 @@ test("Block malicious script injection", async ({ page }) => {
     })
     await productPage.searchProduct('<script>alert("Hacked")</script>');
     expect(alert).toBe(false);
-    
 
 });
 
-test("Verify secure cookies", async ({ page, context }) => {
+test("Test 4 :Verify secure cookies", async ({ page, context }) => {
     const loginPage = new LoginPage(page);
     const password = "playwright123";
     const email  = "playwrightpractise@cv.com";
