@@ -4,6 +4,8 @@ A test automation framework designed with **TypeScript** and **Playwright**, tar
 
 This repository showcases enterprise-level automation practices, focusing on web-first assertions, role-based locators, robust Page Object Model implementation, API/UI hybrid scripts, client-side security checks, and reliable CI/CD pipelines.
 
+It is not only my automation portfolio, but my playground where I am actively improving and exploring my test automation skillset. Any comments, suggestions, and additions are welcome!
+
 ---
 
 ## Highlights
