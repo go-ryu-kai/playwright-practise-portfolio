@@ -47,6 +47,12 @@ export class LoginPage extends BasePage {
        
     }
 
+    findLogoutConfirmationLocator(): Locator {
+        return this.navbar.locator('li').filter({ hasText: 'Logout' });
+       
+    }
+
+
     async getLoginForm() {
         return this.loginForm;
     }
