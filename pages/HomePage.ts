@@ -6,26 +6,11 @@ export class HomePage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-
         this.navbar = page.locator(".shop-menu");
-       
-       
-    }
-    
-    findLoginConfirmationLocator(): Locator {
-        return this.navbar.locator('li').filter({ hasText: 'Logged in as' });
     }
 
-    findLogoutConfirmationLocator(): Locator {
-        return this.navbar.locator('li').filter({ hasText: 'Logout' });
-    }
-
-    findContactFormLocator(): Locator {
-        return this.navbar.locator('li').filter({ hasText: 'Contact us' });
-    }
-
-    findTestCasesLocator(): Locator {
-        return this.navbar.locator('li').filter({ hasText: 'Test Cases' });
+    findNavbarLocator(reference: string): Locator {
+        return this.navbar.locator('li').filter({ hasText: reference });
     }
 
 }

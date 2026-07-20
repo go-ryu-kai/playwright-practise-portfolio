@@ -2,6 +2,11 @@ import { test, expect } from '@playwright/test';
 import { ProductPage } from '../../pages/ProductPage';
 
 test.beforeEach(async ({page}) => {
+    // Playwright Best Practice: Network Interception
+    // Block Google Ads scripts from loading, keeping our DOM clean and clickable
+    await page.route('**/*googlesyndication.com/**', route => route.abort());
+    await page.route('**/*doubleclick.net/**', route => route.abort());
+
     await page.goto("https://automationexercise.com/products");
 });
 

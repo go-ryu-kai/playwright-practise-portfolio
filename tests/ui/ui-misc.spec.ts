@@ -9,7 +9,7 @@ test("Test 1: Contact Us and Form Submit", async ({ page }) => {
     const basePage = new HomePage(page);
     const contactPage = new ContactPage(page);
 
-    const contactForm = basePage.findContactFormLocator();
+    const contactForm = basePage.findNavbarLocator("Contact Us");
     await contactForm.click();
 
     await expect(page).toHaveURL("https://automationexercise.com/contact_us");
@@ -28,7 +28,7 @@ test("Test 2: Test Cases", async ({ page }) => {
     await page.goto("https://automationexercise.com/");
     const basePage = new HomePage(page);
 
-    const testCases = basePage.findTestCasesLocator();
+    const testCases = basePage.findNavbarLocator("Test Cases");
     await testCases.click();
 
     await expect(page).toHaveURL("https://automationexercise.com/test_cases");

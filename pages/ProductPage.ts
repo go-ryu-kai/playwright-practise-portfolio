@@ -48,6 +48,9 @@ export class ProductPage extends BasePage {
 
     async getHoverElementAndAddToCart() {
         const targetCard = await this.getFirstSearchResult();
+        
+        // Since the ads are blocked, we can safely rely on Playwright's 
+        // native actionability checks again
         await targetCard.hover();
         await targetCard.locator(".product-overlay").getByText("Add to cart").click();
     }
