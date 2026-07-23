@@ -42,18 +42,26 @@ export class ProductPage extends BasePage {
         return await this.productCards.count();
     }
 
-    async getFirstSearchResult() {
+    getFirstSearchResult(): Locator {
         return this.productCards.first();
     }
 
+
     async getHoverElementAndAddToCart() {
-        const targetCard = await this.getFirstSearchResult();
+        const targetCard = this.getFirstSearchResult();
         
         // Since the ads are blocked, we can safely rely on Playwright's 
         // native actionability checks again
         await targetCard.hover();
         await targetCard.locator(".product-overlay").getByText("Add to cart").click();
     }
+
+     async getFirstDetailsAndClick() {
+        const targetCard = this.page.locator(".choose").first();
+        await targetCard.getByText("View Product").click();
+
+    }
+
 
     async getExpectedBrandCount(brandName: string) {
         const brandLocator = this.brandsAccordion.getByRole("link", { name: brandName });

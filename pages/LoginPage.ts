@@ -57,6 +57,10 @@ export class LoginPage extends BasePage {
         return this.loginForm;
     }
 
+    getSignupButton(): Locator {
+        return this.signupButton;
+    }
+
     getPasswordInput(): Locator {
         return this.loginPasswordInput;
     }

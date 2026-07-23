@@ -2,6 +2,12 @@ import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/HomePage';
 import { ContactPage } from '../../pages/ContactPage';
 
+test.beforeEach(async ({ page }) => {
+    // Playwright Best Practice: Route blocking applied before navigation
+    await page.route('**/*googlesyndication.com/**', route => route.abort());
+    await page.route('**/*doubleclick.net/**', route => route.abort());
+});
+
 
 test("Test 1: Contact Us and Form Submit", async ({ page }) => {
     await page.goto("https://automationexercise.com/");
