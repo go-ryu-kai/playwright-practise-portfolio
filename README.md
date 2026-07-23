@@ -36,6 +36,7 @@ Playwright-Portfolio-Pro/
 │   ├── BasePage.ts
 │   ├── LoginPage.ts
 │   └── ProductPage.ts
+│   └── ...
 │
 ├── tests/                  # Executable test suites
 │   ├── ui/                 # Functional E2E and visual states
@@ -44,6 +45,7 @@ Playwright-Portfolio-Pro/
 │
 ├── .github/workflows/      # Automated CI/CD execution pipeline
 └── playwright.config.ts    # Main runner configurations
+```
 
 ---
 
