@@ -1,3 +1,5 @@
+[![Playwright Tests](https://github.com/go-ryu-kai/playwright-practise-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/go-ryu-kai/playwright-practise-portfolio/actions/workflows/playwright.yml)
+
 <img width="1024" height="572" alt="image" src="https://github.com/user-attachments/assets/169041ec-2e4e-4cc3-a2ca-fd9d2bcb7d66" />
 
 ---
