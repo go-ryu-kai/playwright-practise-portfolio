@@ -1,4 +1,4 @@
-# Playwright Portfolio Pro
+# Playwright Practise Portfolio
 
 A test automation framework designed with **TypeScript** and **Playwright**, targeting the modern web elements of the [Automation Exercise](https://automationexercise.com/) sandbox. 
 
