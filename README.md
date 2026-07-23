@@ -1,5 +1,6 @@
 <img width="1024" height="572" alt="image" src="https://github.com/user-attachments/assets/169041ec-2e4e-4cc3-a2ca-fd9d2bcb7d66" />
 
+
 A test automation framework designed with **TypeScript** and **Playwright**, targeting the modern web elements of the [Automation Exercise](https://automationexercise.com/) sandbox. 
 
 This repository showcases enterprise-level automation practices, focusing on web-first assertions, role-based locators, robust Page Object Model implementation, API/UI hybrid scripts, client-side security checks, and reliable CI/CD pipelines. It is currently a Work In Progress: expect new updates every week, if not every other day.
