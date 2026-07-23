@@ -1,4 +1,4 @@
-# Playwright Practise Portfolio
+<img width="1024" height="572" alt="image" src="https://github.com/user-attachments/assets/169041ec-2e4e-4cc3-a2ca-fd9d2bcb7d66" />
 
 A test automation framework designed with **TypeScript** and **Playwright**, targeting the modern web elements of the [Automation Exercise](https://automationexercise.com/) sandbox. 
 
