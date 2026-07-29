@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from '../../pages/HomePage';
 import { ContactPage } from '../../pages/ContactPage';
+import { faker } from '@faker-js/faker';
 
 test.beforeEach(async ({ page }) => {
     // Playwright Best Practice: Route blocking applied before navigation
@@ -9,7 +10,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 
-test("Test 1: Contact Us and Form Submit", async ({ page }) => {
+test("Test 6: Contact Us and Form Submit", async ({ page }) => {
     await page.goto("https://automationexercise.com/");
     
     const basePage = new HomePage(page);
@@ -30,7 +31,7 @@ test("Test 1: Contact Us and Form Submit", async ({ page }) => {
     await expect(successAlert).toContainText("Success! Your details have been submitted successfully.");
 });
 
-test("Test 2: Test Cases", async ({ page }) => {
+test("Test 7: Test Cases", async ({ page }) => {
     await page.goto("https://automationexercise.com/");
     const basePage = new HomePage(page);
 
@@ -40,4 +41,34 @@ test("Test 2: Test Cases", async ({ page }) => {
     await expect(page).toHaveURL("https://automationexercise.com/test_cases");
     await expect(page.locator('b')).toBeVisible();
     
+
+});
+
+test("Test Case 10: Verify Subscription to Emails in Home Page", async ({ page }) => {
+    await page.goto("https://automationexercise.com/");
+    const basePage = new HomePage(page);
+    const email = faker.internet.email();
+
+    await basePage.getSubscriptionInput().fill(email);
+    await basePage.getSubscribeButton().click();
+
+    const successAlert = page.locator('.alert-success');
+    await expect(successAlert).toBeVisible();
+
+});
+
+test("Test Case 11: Verify Subscription to Emails in Cart Page", async ({ page }) => {
+    await page.goto("https://automationexercise.com/");
+    const basePage = new HomePage(page);
+    await basePage.findNavbarLocator("Cart").click();
+    await expect(page).toHaveURL("https://automationexercise.com/view_cart")
+    
+    const email = faker.internet.email();
+
+    await basePage.getSubscriptionInput().fill(email);
+    await basePage.getSubscribeButton().click();
+
+    const successAlert = page.locator('.alert-success');
+    await expect(successAlert).toBeVisible();
+
 });
