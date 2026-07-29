@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { ProductPage } from '../../pages/ProductPage';
+import { ProductDetailPage } from '../../pages/ProductDetailPage';
+import { faker } from '@faker-js/faker';
 
 test.beforeEach(async ({page}) => {
     // Playwright Best Practice: Network Interception
@@ -21,7 +23,7 @@ test("Test 1: Validated Product Search", async ({ page }) => {
     const searchResultsCount = await productPage.getProductResultsCount();
     expect(searchResultsCount).toBeGreaterThan(0);
 
-    const firstSearchResult = await productPage.getFirstSearchResult();
+    const firstSearchResult = productPage.getFirstSearchResult();
     await expect(firstSearchResult).toContainText("Blue Top");
 });
 
@@ -39,7 +41,7 @@ test("Test 2: Cart Addition via Hover Overlay", async ({ page }) => {
     await expect(page.locator(".modal-confirm")).toContainText("Your product has been added to cart.")
 });
 
-test("Test 3: Category & Subcategory Drill-Down", async ({ page }) => {
+test("Test 18: View Category Products", async ({ page }) => {
     const productPage = new ProductPage(page);
     const categoryString = "Women";
     const subcategoryString = "Dress";
@@ -50,8 +52,9 @@ test("Test 3: Category & Subcategory Drill-Down", async ({ page }) => {
 
     const searchResultsCount = await productPage.getProductResultsCount();
     expect(searchResultsCount).toBeGreaterThan(0);
-    const firstSearchResult = await productPage.getFirstSearchResult();
+    const firstSearchResult = productPage.getFirstSearchResult();
     await expect(firstSearchResult).toContainText("Sleeveless Dress");
+    await expect(page.locator(".features_items")).toContainText("Women - Dress Products");
 });
 
 test("Test 4: Brand Product Count Audit", async ({ page }) => {
@@ -68,4 +71,18 @@ test("Test 4: Brand Product Count Audit", async ({ page }) => {
     // Test scripts (.spec.ts) should never contain 
     // raw CSS selectors, XPaths, or UI locators.
     
+});
+
+test("Test Case 21: Add review to product", async ({ page }) => {
+    const productPage = new ProductPage(page);
+    const productDetailPage = new ProductDetailPage(page);
+
+    await productPage.getFirstDetailsAndClick();
+    await expect(page).toHaveURL(/\/product_details\/\d+/);
+    await expect(productDetailPage.getProductInformationSection()).toBeVisible();
+
+    await productDetailPage.enterReview("Sarah J", "automationexercise@gmail.com", faker.lorem.sentences(3));
+    await productDetailPage.getReviewSubmitButton().click();
+    await expect(productDetailPage.getReviewSuccessAlert()).toBeVisible();
+
 });

@@ -11,9 +11,12 @@ import { BasePage } from './BasePage';
 export class ProductDetailPage extends BasePage {
     private quantityInput: Locator;
     private addToCartButton: Locator;
+    private reviewName: Locator;
+    private reviewEmail: Locator;
     private reviewInput: Locator;
     private reviewSubmitButton: Locator;
     private productInformationSection: Locator;
+    private reviewSuccessAlert: Locator;
 
 
     constructor(page: Page) {
@@ -21,9 +24,12 @@ export class ProductDetailPage extends BasePage {
         
         this.quantityInput = page.locator("#quantity");
         this.addToCartButton = page.getByRole("button", {name: "Add to cart"});
-        this.reviewInput = page.locator("#review");
+        this.reviewName = page.getByPlaceholder("Your Name");
+        this.reviewEmail = page.getByPlaceholder("Email Address", {exact: true});
+        this.reviewInput = page.getByPlaceholder("Add Review Here!");;
         this.reviewSubmitButton = page.getByRole("button", {name: "Submit"});
         this.productInformationSection = page.locator(".product-information");
+        this.reviewSuccessAlert = page.getByText("Thank you for your review.");
 
     }
 
@@ -45,6 +51,17 @@ export class ProductDetailPage extends BasePage {
 
     getProductInformationSection(): Locator {
         return this.productInformationSection;
+    }
+
+    getReviewSuccessAlert(): Locator {
+        return this.reviewSuccessAlert;
+    }
+
+    async enterReview(name: string, email: string, text: string) {
+        await this.reviewInput.fill(text);
+        await this.reviewEmail.fill(email);
+        await this.reviewName.fill(name);
+
     }
 
     

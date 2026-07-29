@@ -16,6 +16,8 @@ test.beforeEach(async ({ page }) => {
 });
 
 
+
+
 test("Test Case 12: Add Products In Cart", async ({page}) => {
     const productPage = new ProductPage(page);
     const basePage = new HomePage(page);
@@ -146,6 +148,33 @@ test("Test Case 14: Place Order: Register During Checkout", async ({page}) => {
     await expect(page).toHaveURL("https://automationexercise.com/");
     await basePage.findNavbarLocator("Cart").click();
     await expect(page.locator(".text-center")).toContainText("Cart is empty!"); 
+
+
+
+});
+
+test("Test Case 17: Remove Products From Cart", async ({page}) => {
+    const productPage = new ProductPage(page);
+    const basePage = new HomePage(page);
+    const cartPage = new CartPage(page);
+
+    await page.goto("https://automationexercise.com/");
+
+    await basePage.findNavbarLocator("Products").click();
+
+    await productPage.getHoverElementAndAddToCart();
+    await expect(page.locator(".modal-confirm")).toBeVisible();
+    await expect(page.locator(".modal-confirm")).toContainText("Your product has been added to cart.");
+
+    await page.getByRole("link", {name: "View Cart"}).click();
+    await expect(page).toHaveURL("https://automationexercise.com/view_cart");
+
+    const firstRow = cartPage.getFirstCartItemRow();
+    await expect(firstRow).toBeVisible();
+
+    await cartPage.getFirstCartItemDeleteButton().click();
+    await expect(page.locator("#empty_cart")).toContainText("Cart is empty!");
+
 
 });
 

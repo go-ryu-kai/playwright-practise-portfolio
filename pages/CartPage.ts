@@ -49,4 +49,9 @@ export class CartPage extends BasePage {
         return this.getFirstCartItemRow().locator(".cart_quantity");
     }   
 
+    getFirstCartItemDeleteButton(): Locator {
+        return this.getFirstCartItemRow().locator(".cart_delete a");
+    }
+    
+
 }
