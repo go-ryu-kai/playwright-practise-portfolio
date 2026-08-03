@@ -12,7 +12,10 @@ export class LoginPage extends BasePage {
     private signupEmailInput: Locator;
     private signupButton: Locator;
 
-    private navbar: Locator
+    private navbar: Locator;
+
+    private existingEmailMessage: Locator;
+    
 
     constructor(page: Page) {
         super(page);
@@ -27,6 +30,8 @@ export class LoginPage extends BasePage {
         this.signupNameInput = page.getByPlaceholder("Name");
         this.signupEmailInput = this.signupForm.getByPlaceholder("Email Address");
         this.signupButton = page.getByRole("button", {name: "Signup"});
+
+        this.existingEmailMessage = page.getByText("Email Address already exist!");
     }
 
     async login(email: string, password: string) {
@@ -67,5 +72,9 @@ export class LoginPage extends BasePage {
 
     getErrorMessageLocator(): Locator {
         return this.loginForm.getByText("Your email or password is incorrect!");
+    }
+
+    getExistingEmailError(): Locator {
+        return this.existingEmailMessage;
     }
 }

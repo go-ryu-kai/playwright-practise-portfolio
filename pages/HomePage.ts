@@ -5,14 +5,16 @@ export class HomePage extends BasePage {
     private navbar: Locator
     private emailSubscription: Locator;
     private subscribeButton: Locator;
-    private successfulSubscription: Locator;
+    private successMessage: Locator;
+    private pageTitle: Locator;
 
     constructor(page: Page) {
         super(page);
         this.navbar = page.locator(".shop-menu");
         this.emailSubscription = page.locator("#susbscribe_email");
         this.subscribeButton = page.locator("#subscribe");
-        this.successfulSubscription = page.locator(".alert-success");
+        this.successMessage = page.locator(".alert-success");
+        this.pageTitle = page.locator('.title');
     }
 
     findNavbarLocator(reference: string): Locator {
@@ -27,8 +29,12 @@ export class HomePage extends BasePage {
         return this.subscribeButton;
     }
 
-    getSuccessfulSub(): Locator {
-        return this.successfulSubscription;
+    getSuccessAlert(): Locator {
+        return this.successMessage;
+    }
+
+    getPageTitle(): Locator {
+        return this.pageTitle;
     }
 
 }

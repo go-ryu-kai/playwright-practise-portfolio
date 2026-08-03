@@ -10,6 +10,7 @@ export class ProductPage extends BasePage {
     private productCards: Locator;
     private productCategoryAccordion: Locator;
     private brandsAccordion: Locator;
+    private confirmationMessage: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -20,6 +21,7 @@ export class ProductPage extends BasePage {
         this.productCards = page.locator(".single-products");
         this.productCategoryAccordion = page.locator(".category-products");
         this.brandsAccordion = page.locator(".brands-name");
+        this.confirmationMessage = page.locator(".modal-confirm");
 
     }
 
@@ -72,5 +74,9 @@ export class ProductPage extends BasePage {
 
     async clickBrand(brandName: string) {
         await this.brandsAccordion.getByRole("link", { name: brandName }).click();
+    }
+
+    getConfirmationMessage(): Locator {
+        return this.confirmationMessage;
     }
 }

@@ -58,7 +58,7 @@ test("Test 5: Register User using Existing Email", async ({ page }) => {
     const email  = "playwrightpractise@cv.com";  
 
     await loginPage.signup(name, email);
-    await expect(page.getByText("Email Address already exist!")).toBeVisible();
+    await expect(loginPage.getExistingEmailError()).toBeVisible();
 });
 
 test("Test 6: Logout User", async ({ page }) => {

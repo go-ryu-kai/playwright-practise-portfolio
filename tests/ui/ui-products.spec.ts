@@ -37,8 +37,8 @@ test("Test 2: Cart Addition via Hover Overlay", async ({ page }) => {
 
     await productPage.getHoverElementAndAddToCart();
 
-    await expect(page.locator(".modal-confirm")).toBeVisible();
-    await expect(page.locator(".modal-confirm")).toContainText("Your product has been added to cart.")
+    await expect(productPage.getConfirmationMessage()).toBeVisible();
+    await expect(productPage.getConfirmationMessage()).toContainText("Your product has been added to cart.")
 });
 
 test("Test 18: View Category Products", async ({ page }) => {

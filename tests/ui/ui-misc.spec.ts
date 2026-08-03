@@ -22,13 +22,10 @@ test("Test 6: Contact Us and Form Submit", async ({ page }) => {
     await expect(page).toHaveURL("https://automationexercise.com/contact_us");
     await expect(contactPage.getHeader()).toBeVisible();
 
-    page.once('dialog', dialog => dialog.accept());
-
     await contactPage.fillAndSubmitForm("Contact Person", "abc@xyz.com", "My Enquiry", "This Is A Test Message");
     
-    const successAlert = page.locator('.status.alert.alert-success');
-    await expect(successAlert).toBeVisible({ timeout: 15000 });
-    await expect(successAlert).toContainText("Success! Your details have been submitted successfully.");
+    await expect(contactPage.getSuccessAlert()).toBeVisible({ timeout: 15000 });
+    await expect(contactPage.getSuccessAlert()).toContainText("Success! Your details have been submitted successfully.");
 });
 
 test("Test 7: Test Cases", async ({ page }) => {
@@ -39,7 +36,7 @@ test("Test 7: Test Cases", async ({ page }) => {
     await testCases.click();
 
     await expect(page).toHaveURL("https://automationexercise.com/test_cases");
-    await expect(page.locator('b')).toBeVisible();
+    await expect(basePage.getPageTitle()).toBeVisible();
     
 
 });
@@ -52,8 +49,7 @@ test("Test Case 10: Verify Subscription to Emails in Home Page", async ({ page }
     await basePage.getSubscriptionInput().fill(email);
     await basePage.getSubscribeButton().click();
 
-    const successAlert = page.locator('.alert-success');
-    await expect(successAlert).toBeVisible();
+    await expect(basePage.getSuccessAlert()).toBeVisible({ timeout: 15000 });
 
 });
 
@@ -68,7 +64,6 @@ test("Test Case 11: Verify Subscription to Emails in Cart Page", async ({ page }
     await basePage.getSubscriptionInput().fill(email);
     await basePage.getSubscribeButton().click();
 
-    const successAlert = page.locator('.alert-success');
-    await expect(successAlert).toBeVisible();
+    await expect(basePage.getSuccessAlert()).toBeVisible({ timeout: 15000 });
 
 });
