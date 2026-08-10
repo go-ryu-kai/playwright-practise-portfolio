@@ -3,7 +3,10 @@ import { ProductPage } from '../../pages/ProductPage';
 import { ProductDetailPage } from '../../pages/ProductDetailPage';
 import { faker } from '@faker-js/faker';
 
-test.beforeEach(async ({page}) => {
+
+test.describe("UI Product Tests", () => {
+
+    test.beforeEach(async ({page}) => {
     // Playwright Best Practice: Network Interception
     // Block Google Ads scripts from loading, keeping our DOM clean and clickable
     await page.route('**/*googlesyndication.com/**', route => route.abort());
@@ -12,7 +15,7 @@ test.beforeEach(async ({page}) => {
     await page.goto("https://automationexercise.com/products");
 });
 
-test("Test 1: Validated Product Search", async ({ page }) => {
+test("Test Case 9: Search Product", async ({ page }) => {
     const productPage = new ProductPage(page);
 
     await productPage.searchProduct("Blue Top");
@@ -27,7 +30,7 @@ test("Test 1: Validated Product Search", async ({ page }) => {
     await expect(firstSearchResult).toContainText("Blue Top");
 });
 
-test("Test 2: Cart Addition via Hover Overlay", async ({ page }) => {
+test("Test Case 12: Add Products in Cart", async ({ page }) => {
     const productPage = new ProductPage(page);
 
     await productPage.searchProduct("Blue Top");
@@ -41,7 +44,7 @@ test("Test 2: Cart Addition via Hover Overlay", async ({ page }) => {
     await expect(productPage.getConfirmationMessage()).toContainText("Your product has been added to cart.")
 });
 
-test("Test 18: View Category Products", async ({ page }) => {
+test("Test Case 18: View Category Products", async ({ page }) => {
     const productPage = new ProductPage(page);
     const categoryString = "Women";
     const subcategoryString = "Dress";
@@ -57,7 +60,7 @@ test("Test 18: View Category Products", async ({ page }) => {
     await expect(page.locator(".features_items")).toContainText("Women - Dress Products");
 });
 
-test("Test 4: Brand Product Count Audit", async ({ page }) => {
+test("Test Case 19: View & Cart Brand Products [Count Audit]", async ({ page }) => {
     const productPage = new ProductPage(page);
     const brandName = "Polo"
     let extractedNumber = 0;
@@ -73,7 +76,7 @@ test("Test 4: Brand Product Count Audit", async ({ page }) => {
     
 });
 
-test("Test Case 21: Add review to product", async ({ page }) => {
+test("Test Case 21: Add review on product", async ({ page }) => {
     const productPage = new ProductPage(page);
     const productDetailPage = new ProductDetailPage(page);
 
@@ -84,5 +87,7 @@ test("Test Case 21: Add review to product", async ({ page }) => {
     await productDetailPage.enterReview("Sarah J", "automationexercise@gmail.com", faker.lorem.sentences(3));
     await productDetailPage.getReviewSubmitButton().click();
     await expect(productDetailPage.getReviewSuccessAlert()).toBeVisible();
+
+});
 
 });

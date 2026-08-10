@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { ProductPage } from '../../pages/ProductPage';
 import { LoginPage } from '../../pages/LoginPage';
 
+test.describe("UI Security Tests", () => {
 test("Test 1: Verify console: no major runtime errors or leakage warnings", async ({ page }) => {
     const consoleErrors: string[] = [];
 
@@ -56,5 +57,7 @@ test("Test 4 :Verify secure cookies", async ({ page, context }) => {
             expect(cookie.httpOnly).toBe(true); //cookie of the above types must be unreadable by JavaScript
         }
     }
+
+});
 
 });

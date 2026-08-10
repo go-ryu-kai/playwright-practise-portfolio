@@ -1,81 +1,85 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 
-test.beforeEach(async ({page}) => {
-    await page.goto("https://automationexercise.com/login");
-});
+test.describe("UI Login Tests", () => {
 
-test("Test 1: Valid Login Happy Path", async ({ page }) => {
-    const loginPage = new LoginPage(page);
+    test.beforeEach(async ({page}) => {
+        await page.goto("https://automationexercise.com/login");
+    });
 
-    const password = "playwright123";
-    const email  = "playwrightpractise@cv.com";
-    const name = "Playwright CV";
+    test("Test Case 1: Register User", async ({ page }) => {
+        const loginPage = new LoginPage(page);
 
-    await loginPage.login(email, password);
-    await  expect(page).toHaveURL("https://automationexercise.com");
-    const loginConfirmationElement = loginPage.findLoginConfirmationLocator();
-    await expect(loginConfirmationElement).toContainText("Logged in as "+name);
+        const name = "Portfolio QA";
+        const email  = "playwrightpractise2@cv.com";
 
-    //The above kept failing. Why?
-    //toContainText() is a web-first assertion, it must be awaited.
+        await loginPage.signup(name, email);
+        await expect(page).toHaveURL("https://automationexercise.com/signup");
+        
+    });
+    test("Test Case 2: Login User with correct email and password", async ({ page }) => {
+        const loginPage = new LoginPage(page);
 
-});
+        const password = "playwright123";
+        const email  = "playwrightpractise@cv.com";
+        const name = "Playwright CV";
 
-test("Test 2: Invalid Login: Bad Password", async ({ page }) => {
-    const loginPage = new LoginPage(page);
+        await loginPage.login(email, password);
+        await  expect(page).toHaveURL("https://automationexercise.com");
+        const loginConfirmationElement = loginPage.findLoginConfirmationLocator();
+        await expect(loginConfirmationElement).toContainText("Logged in as "+name);
 
-    const password = "error123987!";
-    const email  = "playwrightpractise@cv.com";
+        //The above kept failing. Why?
+        //toContainText() is a web-first assertion, it must be awaited.
 
-    await loginPage.login(email, password);
-    const errorBanner = loginPage.getErrorMessageLocator();
-    await expect(errorBanner).toBeVisible();
-    
-});
+    });
 
-test("Test 3: Sign Up New User (Not Full Journey)", async ({ page }) => {
-    const loginPage = new LoginPage(page);
+    test("Test Case 3: Login User with incorrect email and password", async ({ page }) => {
+        const loginPage = new LoginPage(page);
 
-    const name = "Portfolio QA";
-    const email  = "playwrightpractise2@cv.com";
+        const password = "error123987!";
+        const email  = "playwrightpractise@cv.com";
 
-    await loginPage.signup(name, email);
-    await expect(page).toHaveURL("https://automationexercise.com/signup");
-    
-});
+        await loginPage.login(email, password);
+        const errorBanner = loginPage.getErrorMessageLocator();
+        await expect(errorBanner).toBeVisible();
+        
+    });
 
-test("Test 4: Password Masking", async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await expect(loginPage.getPasswordInput()).toHaveAttribute("type", "password");
 
-});
+    test("Test Case 4: Logout User", async ({ page }) => {
+        const loginPage = new LoginPage(page);
 
-test("Test 5: Register User using Existing Email", async ({ page }) => {
-    const loginPage = new LoginPage(page);  
+        const password = "playwright123";
+        const email  = "playwrightpractise@cv.com";
+        const name = "Playwright CV";
 
-    const name = "Existing Email";
-    const email  = "playwrightpractise@cv.com";  
+        await loginPage.login(email, password);
+        await  expect(page).toHaveURL("https://automationexercise.com");
+        const loginConfirmationElement = loginPage.findLoginConfirmationLocator();
+        await expect(loginConfirmationElement).toContainText("Logged in as "+name);
 
-    await loginPage.signup(name, email);
-    await expect(loginPage.getExistingEmailError()).toBeVisible();
-});
+        const logoutConfirmationElement = loginPage.findLogoutConfirmationLocator();
+        await logoutConfirmationElement.click();
+        await  expect(page).toHaveURL("https://automationexercise.com/login");
 
-test("Test 6: Logout User", async ({ page }) => {
-    const loginPage = new LoginPage(page);
 
-    const password = "playwright123";
-    const email  = "playwrightpractise@cv.com";
-    const name = "Playwright CV";
+    });
 
-    await loginPage.login(email, password);
-    await  expect(page).toHaveURL("https://automationexercise.com");
-    const loginConfirmationElement = loginPage.findLoginConfirmationLocator();
-    await expect(loginConfirmationElement).toContainText("Logged in as "+name);
+    test("Test Case 5: Register User with existing email", async ({ page }) => {
+        const loginPage = new LoginPage(page);  
 
-    const logoutConfirmationElement = loginPage.findLogoutConfirmationLocator();
-    await logoutConfirmationElement.click();
-    await  expect(page).toHaveURL("https://automationexercise.com/login");
+        const name = "Existing Email";
+        const email  = "playwrightpractise@cv.com";  
 
+        await loginPage.signup(name, email);
+        await expect(loginPage.getExistingEmailError()).toBeVisible();
+    });
+
+    test("Test N: Password Masking", async ({ page }) => {
+        const loginPage = new LoginPage(page);
+        await expect(loginPage.getPasswordInput()).toHaveAttribute("type", "password");
+
+    });
 
 });
